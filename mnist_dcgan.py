@@ -68,6 +68,8 @@ dLosses = []
 gLosses = []
 
 # Plot the loss from each batch
+
+
 def plotLoss(epoch):
     plt.figure(figsize=(10, 8))
     plt.plot(dLosses, label='Discriminitive loss')
@@ -78,6 +80,8 @@ def plotLoss(epoch):
     plt.savefig('images/dcgan_loss_epoch_%d.png' % epoch)
 
 # Create a wall of generated MNIST images
+
+
 def plotGeneratedImages(epoch, examples=100, dim=(10, 10), figsize=(10, 10)):
     noise = np.random.normal(0, 1, size=[examples, randomDim])
     generatedImages = generator.predict(noise)
@@ -91,19 +95,22 @@ def plotGeneratedImages(epoch, examples=100, dim=(10, 10), figsize=(10, 10)):
     plt.savefig('images/dcgan_generated_image_epoch_%d.png' % epoch)
 
 # Save the generator and discriminator networks (and weights) for later use
+
+
 def saveModels(epoch):
     generator.save('models/dcgan_generator_epoch_%d.h5' % epoch)
     discriminator.save('models/dcgan_discriminator_epoch_%d.h5' % epoch)
 
-def train(epochs=1, batchSize=128):
-    batchCount = X_train.shape[0] / batchSize
-    print 'Epochs:', epochs
-    print 'Batch size:', batchSize
-    print 'Batches per epoch:', batchCount
 
-    for e in xrange(1, epochs+1):
-        print '-'*15, 'Epoch %d' % e, '-'*15
-        for _ in tqdm(xrange(batchCount)):
+def train(epochs=1, batchSize=128):
+    batchCount = int(X_train.shape[0] / batchSize)
+    print('Epochs:', epochs)
+    print('Batch size:', batchSize)
+    print('Batches per epoch:', batchCount)
+
+    for e in range(1, epochs+1):
+        print('-'*15, 'Epoch %d' % e, '-'*15)
+        for _ in tqdm(range(batchCount)):
             # Get a random set of input noise and images
             noise = np.random.normal(0, 1, size=[batchSize, randomDim])
             imageBatch = X_train[np.random.randint(0, X_train.shape[0], size=batchSize)]
@@ -138,6 +145,6 @@ def train(epochs=1, batchSize=128):
     # Plot losses from every epoch
     plotLoss(e)
 
+
 if __name__ == '__main__':
     train(50, 128)
-
