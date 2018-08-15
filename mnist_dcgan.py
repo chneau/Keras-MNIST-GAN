@@ -26,7 +26,7 @@ randomDim = 100
 
 # Load MNIST data
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
-X_train = (X_train.astype(np.float32) - 127.5)/127.5
+X_train = (X_train.astype(np.float32) - 127.5) / 127.5
 X_train = X_train[:, np.newaxis, :, :]
 
 # Optimizer
